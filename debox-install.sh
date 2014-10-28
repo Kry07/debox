@@ -59,6 +59,7 @@ echo "do: configurating bootstrap"
 
 echo "do: copying debox to Android System Partition"
 adb shell mount -o remount,rw -t yaffs2 $andsys_part /system
+cat localVar.sh debox.sh > debox
 #adb push debox /system/bin/
 #adb shell chmod 744 /system/bin/debox
 adb shell mount -o remount,ro -t yaffs2 $andsys_part /system
@@ -67,5 +68,3 @@ adb shell busybox umount $d_part
 adb shell busybox rmdir $mnt
 
 echo "done"
-
-
