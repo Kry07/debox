@@ -1,6 +1,9 @@
 debox-README
 ============
 
+!! I made a automated installer - so now the debox is not working !!
++ I have to set up variables in debox correctly
+
 Debian chroot system on Android root
 
 you need:
@@ -8,7 +11,7 @@ you need:
  - Comuter with Linux (debian-based)
  - rooted Android device
  - busybox on your Android device
- - adb-tools from Google
+ - adb-tools
 
 Comment:
 -------
@@ -20,7 +23,7 @@ Comment:
  So you have to set up the the path-variables in debox. These Variables can be different in some Android devices
  the debox scribt is written with bash-syntax
  If you want Linux Terminal without root, watch Kbox.
- Go through debox-INSTALL and run all commands, if you understand them.
+ //Go through debox-INSTALL and run all commands, if you understand them.
  I would like to develope this script and appreciate help or ideas.
 
 Features:
