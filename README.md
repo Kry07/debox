@@ -12,15 +12,11 @@ you need:
 
 Comment:
 -------
- I made this Box-script to use a full Linux Terminal on my Android system.
-// there are possibilitys to put the debian system in a .img file and mount it afterwards, 
-// but i think this makes your system much more slower, especialsy if you want to work with your SD in Android.
-// you can also set up vnc server and then run X-server over vnc-client on Android
- You have make you partition-table by your own!
- So you have to set up the the variables in localVar.sh.
+ I made this Box script, to use a full Debian Shell on my Android system.
+ You have to make your partition-table by your own!
+ You have to set up the the variables in localVar.sh.
  These Variables can be different in some Android devices
- the debox scribt is written with bash-syntax
- If you want Linux Terminal without root, gofor Kbox.
+ The debox script is written with sh-syntax.
  You can go through debox-INSTALL and run all commands, if you understand them.
  Or run my debox-install.sh script, if you understand what it does.
  I would like to develope this script and appreciate help or ideas.
@@ -52,5 +48,5 @@ TODO:
   - sdcard mount check
   - sdcard mount -o android given options
   - use mount with uuid
-  - make android system "/" access-abel in debox
-  - run android programs out of the debbox
+  - make android system "/" access-able in debox
+  - run android programs out of the debox
