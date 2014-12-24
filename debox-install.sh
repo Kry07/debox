@@ -37,31 +37,33 @@ adb shell busybox mount -t ext4 $d_part $mnt
 adb shell busybox df -ha $sd_part $d_part $andsys_part
 
 echo "do: bootstrap armel $debian_version $debian_server"
-#mkdir tmp
-#debootstrap --verbose --arch armel --foreign $debian_version tmp $debian_server
+mkdir tmp
+debootstrap --verbose --arch armel --foreign $debian_version tmp $debian_server
 
 echo "do: configurating /etc/"
-#echo "nameserver 8.8.8.8" > tmp/etc/resolv.conf
-#echo $hostName > tmp/etc/hostname
-#cp fstab tmp/etc/
-#cat sources.list >> tmp/etc/apt/sources.list
+echo "nameserver 8.8.8.8" > tmp/etc/resolv.conf
+echo $hostName > tmp/etc/hostname
+cp fstab tmp/etc/
+## dont work why?
+cat sources.list >> tmp/etc/apt/sources.list
 
 echo "do: copy debian to $d_part"
-#cd tmp
-#tar czf ../files.tar.gz *
-#cd ..
-#adb push files.tar.gz $mnt
-#adb shell busybox tar -xzv -f $mnt/files.tar.gz -C $mnt
-#adb shell rm $mnt/files.tar.gz 
+cd tmp
+tar czf ../files.tar.gz *
+cd ..
+adb push files.tar.gz $mnt
+adb shell busybox tar -xzv -f $mnt/files.tar.gz -C $mnt
+adb shell rm $mnt/files.tar.gz 
 
 echo "do: configurating bootstrap"
-#adb shell busybox chroot $mnt /debootstrap/debootstrap --second-stage
+adb shell busybox chroot $mnt /debootstrap/debootstrap --second-stage
 
 echo "do: copying debox to Android System Partition"
 adb shell mount -o remount,rw -t yaffs2 $andsys_part /system
-cat localVar.sh debox.sh > debox
-#adb push debox /system/bin/
-#adb shell chmod 744 /system/bin/debox
+echo "#! /system/bin/sh" > debox
+cat localVar.sh debox.sh >> debox
+adb push debox /system/bin/
+adb shell chmod 744 /system/bin/debox
 adb shell mount -o remount,ro -t yaffs2 $andsys_part /system
 
 adb shell busybox umount $d_part

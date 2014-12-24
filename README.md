@@ -17,10 +17,12 @@ Comment:
 // but i think this makes your system much more slower, especialsy if you want to work with your SD in Android.
 // you can also set up vnc server and then run X-server over vnc-client on Android
  You have make you partition-table by your own!
- So you have to set up the the path-variables in debox. These Variables can be different in some Android devices
+ So you have to set up the the variables in localVar.sh.
+ These Variables can be different in some Android devices
  the debox scribt is written with bash-syntax
- If you want Linux Terminal without root, watch Kbox.
- Go through debox-INSTALL and run all commands, if you understand them.
+ If you want Linux Terminal without root, gofor Kbox.
+ You can go through debox-INSTALL and run all commands, if you understand them.
+ Or run my debox-install.sh script, if you understand what it does.
  I would like to develope this script and appreciate help or ideas.
 
 Features:
@@ -46,7 +48,9 @@ Disclaimer:
 use this script at your own risk.
 
 TODO:
+  - adduser in debox-install.sh
+  - sdcard mount check
+  - sdcard mount -o android given options
+  - use mount with uuid
   - make android system "/" access-abel in debox
   - run android programs out of the debbox
-  
-
