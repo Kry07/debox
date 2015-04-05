@@ -4,7 +4,9 @@ if [ -f localVar.sh ]; then
 	source ./localVar.sh
 fi
 
-echo -e "info: check if partition are okey\n"
+echo -e "
+info: put you sdcard in your android
+info: check if partition are okey\n"
 for i in $d_uuid $sd_uuid $swp_uuid; do
 	adb shell busybox blkid | grep $i 
 done
@@ -15,9 +17,9 @@ fi
 
 echo -e "
 info: please connect your android over usb
-info: enable adb(root)
-info: put you sdcard in your android"
+info: enable adb(root)"
 
+adb root
 adb wait-for-device
 
 echo "do: check partitions"
@@ -44,8 +46,16 @@ echo "do: configurating /etc/"
 echo "nameserver 8.8.8.8" > tmp/etc/resolv.conf
 echo $hostName > tmp/etc/hostname
 cp fstab tmp/etc/
-## dont work why?
-cat sources.list >> tmp/etc/apt/sources.list
+## dont work why? mybe now
+cat sources.list >>! tmp/etc/apt/sources.list
+echo "#! /system/bin/sh" > tmp/bin/chroot.sh
+cat localVar.sh chroot-init.sh >> tmp/bin/chroot.sh
+
+echo "cont [y/n]"
+read yesno
+if [ $yesno != "y" ]; then
+	exit
+fi
 
 echo "do: copy debian to $d_part"
 cd tmp

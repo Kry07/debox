@@ -4,29 +4,38 @@ export HOME=/root
 export USER=root
 
 busyBmnt() {
-	if [ -z "$3" ]; then
+	vfstype=$1; device=$2; dir=$3; options=$4
+
+	if [ -z "$3" ] || [ ! -z "$5" ]; then
 		echo "error: mount variable is not set"
-	fi
+	else
+		if [ -z "$options" ]; then
+			busybox mount -t $vfstype $device $dir >&2
+		else
+			busybox mount -t $vfstype $device $dir -o $options >&2
+		fi
 
-	busybox mount -t $1 $2 $3
-
-	if [ $? -ne 0 ]; then 
-		echo "error: Unable to mount $mpart from type $mtyp to $mdir"
-		UmntBox
-		exit
+		if [ $? -ne 0 ]; then 
+			echo "error: Unable to mount $device from type $vfstype to $dir"
+			UmntBox
+			exit
+		fi
 	fi
 }
 
+#insideD > inside Debox = true / false
 hasActiveP() {
-	MPUSED=`lsof | grep $2 | awk '{print $2}' | sort -u`
+	insideD=$1; dir=$2
+
+	MPUSED=`lsof | grep $dir | awk '{print $2}' | sort -u`
 	if [ -n "$MPUSED" ] ; then
 		echo "$2 has active processes"
-		echo $(lsof | grep $2 | awk '{print $1}' | sort -u)
+		echo $(lsof | grep $dir | awk '{print $1}' | sort -u)
 		echo "do you want to kill them? [y/n]"
 		read yesno
 		if [ "$yesno" = "y" ]; then
 			for i in $MPUSED; do
-				if [ $1 -ne 0 ]; then
+				if [ $insideD -ne 0 ]; then
 					busybox chroot $mnt /bin/bash -c "kill -s SIGKILL $i"
 				else
 					kill $i
@@ -35,7 +44,7 @@ hasActiveP() {
 
 		else
 			echo "Prosess will not be killed"
-			if [ $1 -ne 0 ]; then
+			if [ $insideD -ne 0 ]; then
 				echo "Atention Debian is mounted! [debox stop]"
 				exit
 			fi
@@ -46,11 +55,11 @@ hasActiveP() {
 MntBox() {
 	echo "starting debox... "
 	busybox mkdir -p $mnt
-	busyBmnt ext4 $d_part $mnt
+	busyBmnt ext4 UUID="$d_uuid" $mnt
 	busyBmnt devpts devpts $mnt/dev/pts
 	busyBmnt proc proc $mnt/proc
 	busyBmnt sysfs sysfs $mnt/sys
-	swapon $swp_part
+	swapon -U $swp_uuid
 }
 
 UmntBox() {
@@ -58,7 +67,8 @@ UmntBox() {
 	echo "stoping debox... "
 	if [ -d $usrMnt ]; then
 		busybox umount $usrMnt
-		busyBmnt vfat $sd_part $sdcard
+		busybox rmdir $usrMnt
+		echo "Now go to Settings > Storage > Mount SD card"
 	fi
 	busybox umount $mnt/dev/pts/
 	busybox umount $mnt/proc/
@@ -69,11 +79,13 @@ UmntBox() {
 
 GetHome() {
 	hasActiveP 0 $sdcard
+	buysbox umount $sdcard
+
 	if [ ! -d $mnt ]; then
 		MntBox
 	fi
-	busybox umount $sdcard
-	busybox mount -o nodev,uid=1000,gid=1000,fmask=0002,dmask=0002 -t vfat $sd_part $usrMnt
+	busybox mkdir -p $usrMnt
+	busyBmnt vfat UUID="$sd_uuid" $usrMnt nodev,uid=1000,gid=1000,umask=013
 }
 
 if [ "$1" == "sd" ]; then
