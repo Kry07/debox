@@ -1,6 +1,4 @@
-andolinux-init.txt
-autobootscript.txt
-bootscript.txt
-chroot-mounts.txt
+ignore
 files.tar.gz
 tmp
+debox

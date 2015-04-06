@@ -1,14 +1,19 @@
-# the two partitons should be empty.
-export d_uuid="22e86a4a-8031-41f0-ac07-46eb2606df0d"
-export swp_uuid="370f91ca-0053-4be0-8f07-7808b2c83153"
-export sd_uuid="3D4D-232C"
+# Global Variables, please fill up.
+# the first two partitons should be empty.
+export d_uuid="267c1313-3e82-4c6f-bae0-25b1568ce20c"
+export swp_uuid="b0b4d58a-c61e-4d81-a5b5-b0aadd056fd5"
+export sd_uuid="7E6A-D73C"
 
-# export sdcard=/mnt/external_sd
+# These Variables are in Android, please check.
+#export sdcard=/mnt/external_sd
+export andsys_part=/dev/block/mmcblk0p3
 export sdcard=/storage/sdcard1
-export mnt=/data/local/debian
+
+# Optional to edit
 export usr=icony
+export mnt=/data/local/debian
 export usrMnt=$mnt/home/$usr/data
 export debian_version="wheezy"
 # check if source.list is compatible with $debian_version
-export debian_server="http://ftp.de.debian.org/debian"
+export debian_server="http://ftp.us.debian.org/debian"
 export hostName="icony07"
