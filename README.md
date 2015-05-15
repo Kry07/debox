@@ -17,8 +17,7 @@ Comment:
  You have to set up the the variables in localVar.sh.
  These Variables can be different in some Android devices
  The debox script is written with sh-syntax.
- You can go through debox-INSTALL and run all commands, if you understand them.
- Or run my debox-install.sh script, if you understand what it does.
+ Run debox-install.sh script, if you understand what it does.
  I would like to develope this script and appreciate help or ideas.
 
 Features:
@@ -45,8 +44,5 @@ use this script at your own risk.
 
 TODO:
   - adduser in debox-install.sh
-  - sdcard mount check
-  - sdcard mount -o android given options
-  - use mount with uuid
   - make android system "/" access-able in debox
   - run android programs out of the debox
