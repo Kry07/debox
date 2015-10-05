@@ -5,7 +5,7 @@ Debian chroot system on Android root
 
 you need:
 ---------
- - Comuter with Linux (debian-based)
+ - Computer with Linux (debian-based)
  - rooted Android device
  - busybox on your Android device
  - adb-tools
