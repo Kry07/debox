@@ -1,8 +1,9 @@
 # Global Variables, please fill up.
 # the first two partitons should be empty.
-export d_uuid="267c1313-3e82-4c6f-bae0-25b1568ce20c"
-export swp_uuid="b0b4d58a-c61e-4d81-a5b5-b0aadd056fd5"
-export sd_uuid="7E6A-D73C"
+export d_uuid="5df812fc-35a0-409a-8ba2-220d02cf08aa"
+# swapon unterschtüzt leider keine UUID
+export swp_part="/dev/block/mmcblk1p2"
+export sd_uuid="76C1-F957"
 
 # These Variables are in Android, please check.
 #export sdcard=/mnt/external_sd

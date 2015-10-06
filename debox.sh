@@ -59,7 +59,7 @@ MntBox() {
 	busyBmnt devpts devpts $mnt/dev/pts
 	busyBmnt proc proc $mnt/proc
 	busyBmnt sysfs sysfs $mnt/sys
-	swapon -U $swp_uuid
+	busybox swapon $swp_part
 }
 
 UmntBox() {
@@ -73,13 +73,14 @@ UmntBox() {
 	busybox umount $mnt/dev/pts/
 	busybox umount $mnt/proc/
 	busybox umount $mnt/sys/
+	busybox swapoff $swp_part
 	busybox umount $mnt
 	busybox rmdir $mnt
 }
 
 GetHome() {
 	hasActiveP 0 $sdcard
-	buysbox umount $sdcard
+	busybox umount $sdcard
 
 	if [ ! -d $mnt ]; then
 		MntBox
