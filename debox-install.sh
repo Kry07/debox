@@ -33,23 +33,24 @@ export DEBOOTSTRAP_BIN="`whereis debootstrap | awk '{print $2}'`"
 #export DEBOOTSTRAP_BIN="/dir/to/debootstrap/debootstrap"
 #export DEBOOTSTRAP_DIR="/dir/to/debootstrap"
 
-echo -e "
-info: put you sdcard in your android
-info: check if partition are okey\n"
-for i in $d_uuid $sd_uuid $swp_uuid; do
-	adb shell busybox blkid | grep $i 
-done
-
 if [ ! -x $DEBOOTSTRAP_BIN ]; then
-	echo "Debootstrap is not installed" && exit
+	echo "E: debootstrap is not installed"
 	exit
 fi
 
 echo -e "
-info: please connect your android over usb
-info: enable adb(root)"
+I: connect your Android over USB
+I: enable USB-Debugging
+I: accept root for adb"
 adb wait-for-device
 adb root
+
+echo -e "
+I: put your sdcard in your Android
+I: check if partitions are okey\n"
+for i in $d_uuid $sd_uuid $swp_part; do
+	adb shell busybox blkid | grep $i 
+done
 
 adb shell busybox mkdir -p $mnt
 adb shell busybox mount -t ext4 UUID="$d_uuid" $mnt
@@ -62,7 +63,6 @@ mkdir tmp
 $DEBOOTSTRAP_BIN --verbose --foreign --arch $and_arch $debian_version tmp/ $debian_server
 
 echo "I: Configuring /etc/"
-ContinueYN
 echo "nameserver 8.8.8.8" > tmp/etc/resolv.conf
 echo $hostName > tmp/etc/hostname
 cp -v fstab tmp/etc/
