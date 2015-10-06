@@ -112,11 +112,11 @@ elif [ "$1" == "root" ]; then
 		UmntBox
 	fi
 
-elif [ "$1" == "start" ]; then
+elif [ "$1" == "start" ] && [ ! -d $mnt ]; then
 	MntBox
 	echo "for stoping debox, run [debox stop]"
 
-elif [ "$1" == "startsd" ]; then
+elif [ "$1" == "startsd" ] && [ ! -d $usrMnt ]; then
 	GetHome
 	echo "for stoping debox, run [debox stop]"
 
@@ -128,9 +128,9 @@ elif [ "$1" == "stop" ]; then
 	fi
 
 else
-	if [ -d $mnt ] && [ $@ ]; then
-		busybox chroot $mnt /bin/bash -c $@
+	if [ -d $mnt ] && [ "$#" -gt "0" ]; then
+		busybox chroot $mnt /bin/bash -c '$@'
 	else
-		echo "debox is not started, run [debox start]"
+		echo "Usage: debox start | stop | root | sd | [command]"
 	fi
 fi
