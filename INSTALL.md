@@ -36,6 +36,7 @@ Change all Variables in localVar.sh to your needs.
 You can find out the UUID with:
 
     sudo blkid /dev/sdb1 (example)
+    sudo blkid -o list
 
 Also the android systen partition could be different [/dev/block/mmcblk0p3]
 Find it out with command:
