@@ -98,7 +98,7 @@ adb shell debox start
 adb shell debox "apt-get update && apt-get upgrade"
 adb shell debox "apt-get install -y locales bash-completion sudo vim ssh rsync"
 echo "I: adding User $usr"
-adb shell debox "useradd $usr -G adm,sudo,audio,video,ssh -m -p changeme"
+adb shell debox "useradd $usr -G adm,sudo,audio,video,ssh -m"
 adb shell debox "/etc/init.d/ssh stop"
 adb shell debox stop
 
