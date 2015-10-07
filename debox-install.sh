@@ -63,14 +63,12 @@ mkdir tmp
 $DEBOOTSTRAP_BIN --verbose --foreign --arch $and_arch $debian_version tmp/ $debian_server
 
 echo "I: Configuring /etc/"
-echo "nameserver 8.8.8.8" > tmp/etc/resolv.conf
+echo "nameserver 8.8.4.4" > tmp/etc/resolv.conf
+echo "nameserver 8.8.8.8" >> tmp/etc/resolv.conf
 echo $hostName > tmp/etc/hostname
+ln -s /proc/mounts tmp/etc/mtab
 cp -v fstab tmp/etc/
 cp -v sources.list tmp/etc/apt/
-
-#echo "#! /system/bin/sh" > tmp/bin/chroot.sh
-#cat localVar.sh chroot-init.sh >> tmp/bin/chroot.sh
-#chmod 755 tmp/bin/chroot.sh
 
 echo "I: copying $debian_version to $mnt"
 ContinueYN
@@ -94,6 +92,15 @@ echo "I: debian bootstrap second stage"
 adb shell busybox chroot $mnt /bin/bash -c '
 	export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH;
 	/debootstrap/debootstrap --second-stage'
+
+echo "I: upgrading and installing Packages"
+adb shell debox start
+adb shell debox "apt-get update && apt-get upgrade"
+adb shell debox "apt-get install -y locales bash-completion sudo vim ssh rsync"
+echo "I: adding User $usr"
+adb shell debox "useradd $usr -G adm,sudo,audio,video,ssh -m -p changeme"
+adb shell debox "/etc/init.d/ssh stop"
+adb shell debox stop
 
 ExitInstall
 echo "done"
