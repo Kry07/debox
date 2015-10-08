@@ -1,18 +1,18 @@
-INSTALL
--------
-##### !WARNING!
-debox depnds on:
+Installation
+------------
+
+debox depends on:
   - root
   - busybox
 
-1. installing adb and debootstrap
-----------------------
-this below works only for debian-based distributions.
+#### 1. Install adb and debootstrap
+------------------------------
+(Comands below works only for debian-based distributions.)
 
     sudo apt-get install debootstrap
     sudo apt-get install android-tools-adb
 
-2. partitioning SD-Card
+#### 2. Partitioning SD-Card
 ----------------------
   - create 1. partition fat32 for your data.
   - create 2. partition swap                           # size: 2times bigger than your memory.
@@ -22,32 +22,27 @@ Tutorial for partitioning on [Android](http://androidandme.com/2009/08/news/how-
 
 You can use also partitoning Programms like gparted... 
 
-3. setting up Variables
+#### 3. Setting up Variables
 --------------------
-Change all Variables in localVar.sh to your needs.
+Change all Variables in [localVar.sh](https://github.com/Kry07/debox/blob/master/localVar.sh). to your needs.
 #### beware that you changed all the UUID variables, to your partitions.
 You can find out the UUID with:
 
-    sudo blkid /dev/sdb1 (example)
+    sudo blkid /dev/mmcblk1p1 (example)
     sudo blkid -o list
 
-Also the android systen partition could be different [/dev/block/mmcblk0p3]
-Find it out with command:
+Check if "source.list" is compatible with system version.
 
-    mount | grep system
+#### 4. setting up Debian
+-------------------------
 
-Check if "source.list" is compatible with debian version.
-
-4. setting up Debian
---------------------
-
-  Watch "debox-install.sh" closely before you run it.
+  Watch [debox-install.sh](https://github.com/Kry07/debox/blob/master/debox-install.sh) closely before you run it.
   Run it only, if you understand what it does.
-  When the script runs it will ask you after each step, if it should continioue.
+  When the script runs it will ask you after each step, if it should continue.
   I made this for you to see where in the code you are.
-  If somthing goes wrong wait till it ask, to close the programm cleanly.
+  If somthing goes wrong wait till it ask, to close the Program cleanly.
 
-5. run this in Android in debox
+#### 5. Run this in Android in debox
 --------------------
 
     apt-get install console-data
