@@ -1,27 +1,27 @@
-debox-README
-============
+debox readme
+------------
 
-Debian chroot system on Android root
+Debian chroot system on Android
 
-you need:
----------
+#### You need:
+
  - Computer with Linux (debian-based)
  - rooted Android device
  - busybox on your Android device
  - adb-tools
  - debootstrap
 
-Comment:
--------
- I made this Box script, to use a full Debian Shell on my Android system.
- You have to make your partition-table by your own!
- You have to set up the the variables in localVar.sh.
- The debox script is written with sh-syntax.
- See INSTALL.md for instalation.
- I would like to develope this script and appreciate help or ideas.
+#### Comment:
 
-Features:
----------
+  I made this Box script, to use a full Debian Shell on my Android system.
+  You have to make your partition-table by your own!
+  You have to set up the the variables in [localVar.sh](https://github.com/Kry07/debox/blob/master/localVar.sh).
+  The debox script is written with shell-syntax.
+  I would like to develope this script and appreciate help or ideas.
+##### See [INSTALL.md](https://github.com/Kry07/debox/blob/master/INSTALL.md) for installation.
+
+#### Features:
+
  + you can run debox multiple times
  + first created session, umount debox on exit
  + you can login as root
@@ -30,8 +30,8 @@ Features:
  + you can run commands from Adroid to Debox
   - debox top   # will run top in debox
 
-Usage:
---------
+#### Usage:
+
  + debox start      # debox will be mounted
  + debox startsd    # debox and sdcard will be mounted
  + debox stop       # debox will be unmounted
@@ -39,10 +39,6 @@ Usage:
  + debox sd         # login debox as normal user
  + debox [comand]   # run comand in debox
 
-Disclaimer:
------------
-use this script at your own risk.
+##### Use this script at your own risk !
 
-TODO:
-  - make android system "/" access-able in debox
-  - run android programs out of the debox
+##### Licensed under the [GNU General Public License](http://www.gnu.org/licenses/)
