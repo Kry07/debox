@@ -98,7 +98,10 @@ adb shell debox start
 adb shell debox "apt-get update && apt-get upgrade"
 adb shell debox "apt-get install -y locales bash-completion sudo vim ssh rsync"
 echo "I: adding User $usr"
-adb shell debox "useradd $usr -G adm,sudo,audio,video,ssh -m"
+adb shell debox "groupadd -g 1023 aid_media_rw"
+adb shell debox "groupadd -g 3002 aid_net_bt"
+adb shell debox "groupadd -g 3003 aid_inet"
+adb shell debox "useradd -m -u 100000 -s /bin/bash -G adm,sudo,audio,video,ssh,aid_media_rw,aid_net_bt,aid_inet $usr"
 adb shell debox "/etc/init.d/ssh stop"
 adb shell debox stop
 
